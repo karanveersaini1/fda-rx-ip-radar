@@ -1,0 +1,51 @@
+name: Refresh site data
+
+on:
+  schedule:
+    # 07:00 UTC daily — openFDA posts the prior day's actions overnight.
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+# Serialize runs so two refreshes never race on the same commit.
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          # ETL is stdlib-only, but needs 3.10+ for `X | None` annotations.
+          python-version: "3.12"
+
+      - name: Build window
+        id: window
+        run: |
+          end=$(date -u -d 'yesterday' +%F)
+          echo "start=$(date -u -d "$end" +%Y)-01-01" >> "$GITHUB_OUTPUT"
+          echo "end=$end" >> "$GITHUB_OUTPUT"
+
+      - name: Run ETL
+        env:
+          START_DATE: ${{ steps.window.outputs.start }}
+          END_DATE: ${{ steps.window.outputs.end }}
+        run: python etl/run_all.py
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data
+          if git diff --cached --quiet; then
+            echo "No data changes; nothing to commit."
+            exit 0
+          fi
+          git commit -m "data: refresh through ${{ steps.window.outputs.end }}"
+          git push
