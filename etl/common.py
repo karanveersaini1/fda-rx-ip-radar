@@ -10,7 +10,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "docs" / "data"
 
-HEADERS = {"User-Agent": "RxIP-Radar/0.1 (educational research project)"}
+# fda.gov sits behind Akamai bot detection, which reads a request carrying no
+# Accept header as automated traffic and 302s it to an "abuse detection" page
+# that 404s. urllib sends no Accept by default, so we set one explicitly.
+# Keep the honest project User-Agent: a spoofed browser UA is *also* rejected.
+HEADERS = {
+    "User-Agent": "RxIP-Radar/0.1 (educational research project)",
+    "Accept": "*/*",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 
 
 def fetch(url: str, retries: int = 3, timeout: int = 90) -> bytes:
