@@ -50,6 +50,17 @@ jobs:
             echo "No data changes; nothing to commit."
             exit 0
           fi
+          # meta.json carries a generated_at stamp that changes on every run, so
+          # the check above alone would commit daily even when FDA published
+          # nothing. Treat a meta.json-only diff of just that line as no change.
+          if [ "$(git diff --cached --name-only)" = "docs/data/meta.json" ] &&
+             ! git diff --cached -U0 -- docs/data/meta.json |
+                 grep -E '^[+-]' | grep -Ev '^(\+\+\+|---)' |
+                 grep -qv generated_at; then
+            echo "Only the generated_at timestamp moved; nothing to commit."
+            git reset -q
+            exit 0
+          fi
           git commit -m "data: refresh through ${{ steps.window.outputs.end }}"
           git push
 
