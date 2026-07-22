@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RxIP Radar — FDA approvals &amp; their patent consequences</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="site">
+      <h1>⚖️ RxIP Radar</h1>
+      <span class="tagline">by Karanveer Saini — Law × Life Sciences</span>
+      <span class="spacer"></span>
+      <button id="theme-toggle" aria-label="Toggle color theme">Theme</button>
+    </header>
+    <a class="ticker" href="#how" aria-label="About this project — read the full story in the How it works tab">
+      <span class="ticker-track">
+        <span class="ticker-item"><strong>About this project</strong> — this site began as a Google Sheet:
+          FDA items copied off the website by hand and analyzed one row at a time&ensp;·&ensp;built for a
+          university ethics course, so the machine does the gathering and the human hours go to the
+          analysis&ensp;·&ensp;a supplement to a passion for the meeting point of law and the life
+          sciences&ensp;·&ensp;read the full story in “How it works” →</span>
+        <span class="ticker-item" aria-hidden="true"><strong>About this project</strong> — this site began as a Google Sheet:
+          FDA items copied off the website by hand and analyzed one row at a time&ensp;·&ensp;built for a
+          university ethics course, so the machine does the gathering and the human hours go to the
+          analysis&ensp;·&ensp;a supplement to a passion for the meeting point of law and the life
+          sciences&ensp;·&ensp;read the full story in “How it works” →</span>
+      </span>
+    </a>
+
+    <p class="meta-line" id="meta-line">Loading data…</p>
+
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Sections">
+      <button data-tab="radar" role="tab" aria-selected="true">Radar</button>
+      <button data-tab="approvals" role="tab" aria-selected="false">Approvals &amp; estates</button>
+      <button data-tab="fedreg" role="tab" aria-selected="false">Federal Register</button>
+      <button data-tab="primer" role="tab" aria-selected="false">Legal primer</button>
+      <button data-tab="how" role="tab" aria-selected="false">How it works</button>
+    </nav>
+
+    <section class="filters" id="filters" aria-label="Filters">
+      <span id="month-chips"></span>
+      <span class="sep"></span>
+      <select id="category" aria-label="Approval type">
+        <option value="originals" selected>Original approvals</option>
+        <option value="new-drug">New drugs — NDA, FDCA §505(b)(1)</option>
+        <option value="biologic">Biologics — BLA, PHSA §351(a)</option>
+        <option value="generic">Generics — ANDA, FDCA §505(j)</option>
+        <option value="supplement">Supplements — post-approval changes</option>
+        <option value="all">Everything</option>
+      </select>
+      <input type="search" id="search" placeholder="Search drug, ingredient, sponsor…" aria-label="Search" />
+    </section>
+
+    <!-- ============ TAB: Radar ============ -->
+    <div class="panel active" id="panel-radar" role="tabpanel">
+      <section class="tiles" id="tiles" aria-label="Headline statistics"></section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Legal impact brief</h2>
+          <span class="sub">what the selected actions did to the IP landscape</span>
+        </div>
+        <ul class="impact" id="impact-list"></ul>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>The last 30 days</h2>
+          <span class="sub">every approval action on its day — new drugs named · hover a day for detail</span>
+        </div>
+        <div class="legend" id="tl-legend"></div>
+        <div class="chart-box" id="tl-box">
+          <div class="tooltip" id="tl-tooltip" role="status"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ TAB: Approvals & estates ============ -->
+    <div class="panel" id="panel-approvals" role="tabpanel">
+      <section class="card">
+        <div class="card-head">
+          <h2>Approval actions by month</h2>
+          <span class="sub" id="chart-sub"></span>
+          <span class="spacer"></span>
+          <button class="ghost-btn" id="table-toggle" aria-pressed="false">Table view</button>
+        </div>
+        <div class="legend" id="chart-legend"></div>
+        <div class="chart-box" id="chart-box">
+          <div class="tooltip" id="chart-tooltip" role="status"></div>
+        </div>
+        <div id="chart-table" hidden></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Approval actions &amp; patent posture</h2>
+          <span class="sub" id="list-count"></span>
+        </div>
+        <div id="approvals"></div>
+        <button class="ghost-btn" id="show-more" hidden>Show more</button>
+      </section>
+    </div>
+
+    <!-- ============ TAB: Federal Register ============ -->
+    <div class="panel" id="panel-fedreg" role="tabpanel">
+      <section class="card">
+        <div class="card-head">
+          <h2>FDA in the Federal Register</h2>
+          <span class="sub" id="fedreg-sub"></span>
+          <span class="spacer"></span>
+          <button class="ghost-btn" id="fedreg-more" hidden>Show more</button>
+        </div>
+        <p class="note" style="margin:4px 0 8px">The Federal Register is the government's official daily journal —
+        FDA rulemaking, advisory committee meeting notices, and comment periods all publish here first. For a
+        practitioner it is the forward calendar: what the agency is about to do, as opposed to the approvals
+        feed, which records what it just did.</p>
+        <div id="fedreg"></div>
+      </section>
+    </div>
+
+    <!-- ============ TAB: Legal primer ============ -->
+    <div class="panel" id="panel-primer" role="tabpanel">
+      <section class="card">
+        <div class="card-head">
+          <h2>The legal machinery, in one page</h2>
+          <span class="sub">why an FDA approval is also a patent event</span>
+        </div>
+        <dl class="glossary">
+          <dt>Orange Book listing — 21 U.S.C. § 355(b)(1)</dt>
+          <dd>An NDA holder must list every patent that claims the drug or a method of using it. Listing is
+          what links the FDA's regulatory act to the USPTO's property right — and it is the dataset this site joins.</dd>
+          <dt>Paragraph IV certification — § 505(j)(2)(A)(vii)(IV)</dt>
+          <dd>A generic applicant's assertion that a listed patent is invalid or not infringed. Filing one is a
+          statutory act of infringement (35 U.S.C. § 271(e)(2)) that lets the brand sue immediately.</dd>
+          <dt>30-month stay — § 505(j)(5)(B)(iii)</dt>
+          <dd>If the brand sues within 45 days of a Paragraph IV notice, FDA may not approve the generic for
+          30 months (or until the generic wins). Litigation timing is therefore built into the statute.</dd>
+          <dt>NCE exclusivity &amp; the "NCE-1" date</dt>
+          <dd>A new chemical entity gets 5 years during which no ANDA may even be <em>submitted</em> — except a
+          Paragraph IV challenge may be filed at year 4. That fourth anniversary ("NCE-1") is the starting gun
+          for patent litigation, and it appears as a marker on the timelines.</dd>
+          <dt>180-day generic exclusivity — § 505(j)(5)(B)(iv)</dt>
+          <dd>The first Paragraph IV filer earns 180 days as the only generic — the bounty that makes
+          challenging weak patents worthwhile.</dd>
+          <dt>Method-of-use patents &amp; the "skinny label" — § viii</dt>
+          <dd>A generic can carve a patented indication out of its label instead of challenging the patent —
+          which is why patent <em>type</em> (composition of matter vs. method of use) changes litigation strategy.</dd>
+          <dt>Patent term extension — 35 U.S.C. § 156</dt>
+          <dd>Regulatory review time can be restored to one patent per product (up to 5 years). FDA approval
+          literally changes a patent's expiration date.</dd>
+          <dt>The BPCIA "patent dance" — 42 U.S.C. § 262(l)</dt>
+          <dd>Biologics have no Orange Book: patent lists are exchanged privately with biosimilar applicants.
+          The public cannot compute a biosimilar-entry date — a transparency gap this site surfaces rather than hides.</dd>
+        </dl>
+      </section>
+    </div>
+
+    <!-- ============ TAB: How it works ============ -->
+    <div class="panel how" id="panel-how" role="tabpanel">
+      <section class="card">
+        <div class="card-head">
+          <h2>What this site does</h2>
+          <span class="sub">methodology, for readers who bill by the hour</span>
+        </div>
+        <p>Every FDA drug approval is also a property-rights event: it activates listed patents as statutory
+        gates on competition, starts exclusivity clocks, and opens or closes litigation windows on dates you
+        can compute. RxIP Radar watches the interface between the two agencies where that happens — FDA and
+        the USPTO — and republishes itself every morning. Nothing here is estimated or scraped from
+        commercial databases; every number traces to an official government file.</p>
+        <ol class="steps">
+          <li><strong>Pull the approvals</strong> A scheduled job queries openFDA's Drugs@FDA endpoint each
+          morning for every approval action since January 1 — original approvals (NDA, BLA, ANDA) and
+          post-approval supplements alike.</li>
+          <li><strong>Pull the patent estates</strong> The same job downloads the FDA Orange Book bulk files:
+          the patents and exclusivity periods every NDA holder is required to list under
+          21 U.S.C. § 355(b)(1), refreshed by FDA monthly.</li>
+          <li><strong>Join on the application number</strong> The NDA/ANDA number is the statutory key linking
+          both datasets. From the join, the site computes each product's runway — last patent expiry,
+          exclusivity end, and the NCE-1 date when Paragraph IV challenges may first be filed.</li>
+          <li><strong>Publish as a static page</strong> No server, no database, no tracking. The site is
+          regenerated and re-deployed daily by an automated workflow; the raw JSON behind every view is
+          publicly inspectable at <code>data/</code>.</li>
+        </ol>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Why the join is legally sound — and where it isn't</h2></div>
+        <p>The Orange Book is not a courtesy database; it is a statutory disclosure. Section 355(b)(1) obliges
+        the NDA holder to list every patent that claims the approved drug or a method of using it, and
+        § 505(j)(2)(A)(vii) obliges every generic applicant to certify against exactly that list. So the
+        patent data here is the same list that controls real ANDA litigation. Two honest caveats, though:
+        listings are <em>self-reported by the brand</em> and FDA performs no substantive review of them
+        (over-listing is policed only by delisting counterclaims and the FTC), and biologics have no public
+        list at all — under the BPCIA, patent positions surface only inside the private § 262(l) exchange.
+        Where the data ends, this site says so rather than interpolating.</p>
+      </section>
+
+      <div class="two-col">
+        <section class="card">
+          <div class="card-head"><h2>Questions it can answer</h2></div>
+          <ul class="plain">
+            <li><strong>Portfolio watch:</strong> which competitor estates formed this quarter, and how many
+            patents wide are they?</li>
+            <li><strong>Entry planning:</strong> for a given brand, when does the ANDA door open — the
+            exclusivity bar, the NCE-1 challenge date, the last listed patent?</li>
+            <li><strong>Evergreening signals:</strong> which products keep adding efficacy supplements and
+            later-listed formulation or method-of-use patents?</li>
+            <li><strong>Market openings:</strong> which brands just lost their wall — every ANDA approval marks
+            a barrier that expired, was carved around, or fell to challenge?</li>
+            <li><strong>Agency calendar:</strong> what is FDA about to do — rulemaking, guidance, advisory
+            committee meetings — via the Federal Register tab?</li>
+          </ul>
+        </section>
+        <section class="card">
+          <div class="card-head"><h2>Limitations — read before relying</h2></div>
+          <ul class="plain">
+            <li><strong>Biologics gap:</strong> BLAs show no patents because none are publicly listed
+            (BPCIA § 262(l)). Shown as a gap, by design.</li>
+            <li><strong>Listing lag:</strong> sponsors have 30 days to file Orange Book listings, so the newest
+            approvals may show zero patents while the estate is still forming.</li>
+            <li><strong>Pending extensions:</strong> § 156 patent term extensions in prosecution are invisible
+            until granted and listed — real runways can be longer than shown.</li>
+            <li><strong>No litigation layer yet:</strong> Paragraph IV certifications, PTAB inter partes
+            reviews, and district-court dockets are the roadmap, not the present.</li>
+            <li><strong>Unvalidated source:</strong> openFDA ships with its own disclaimer; this is research
+            and education, not legal advice and not a substitute for a freedom-to-operate opinion.</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="card-head"><h2>Sources &amp; cadence</h2></div>
+        <table class="data" style="max-width:900px">
+          <tr><th>Source</th><th>What it provides</th><th>Refresh</th></tr>
+          <tr><td>openFDA — Drugs@FDA</td><td>approval actions (NDA / BLA / ANDA, originals &amp; supplements)</td><td>daily</td></tr>
+          <tr><td>FDA Orange Book bulk files</td><td>listed patents &amp; regulatory exclusivities per application</td><td>daily pull of FDA's monthly file</td></tr>
+          <tr><td>Federal Register API</td><td>FDA rules, proposed rules, notices, meetings</td><td>daily</td></tr>
+        </table>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>About this project</h2>
+          <span class="sub">from a spreadsheet to a pipeline</span>
+        </div>
+        <p>This site began as a manual habit: copying new items off the FDA's website by hand into a Google
+        Sheet, then working through each row one at a time — looking up the drug, its sponsor, its patents,
+        and what the approval actually changed. That workflow topped out at a few items an evening, and most
+        of the hours went to collection rather than analysis.</p>
+        <p>RxIP Radar was built to close that gap, as a project for a university ethics course: the pipeline
+        now does the gathering — from official government sources, on a daily schedule — so the human hours go
+        where they belong, to analyzing what each action means. It also supplements a longer-standing passion
+        for the place where law and the life sciences meet, where a molecule's story is inseparable from the
+        statutes wrapped around it.</p>
+        <p style="margin-bottom:0">Built and maintained by <strong>Karanveer Saini</strong> — a life-science
+        graduate applying to law school, on the theory that the best way to learn the legal architecture of
+        pharmaceutical competition is to build a machine that watches it move. Source code, ETL pipeline, and
+        raw data available on request.</p>
+      </section>
+    </div>
+
+    <footer class="site">
+      <p><strong>RxIP Radar</strong> is a student research and education project. It is not legal advice, and
+      no data here should inform medical or investment decisions. Approval data: openFDA (Drugs@FDA).
+      Patent &amp; exclusivity data: FDA Orange Book (patents listed under 21 U.S.C. § 355(b)(1);
+      biologics have no equivalent listing requirement under the BPCIA — that gap is shown, not hidden).
+      Regulatory documents: Federal Register API. Patent links go to Google Patents. Data refreshes daily
+      via GitHub Actions; openFDA itself notes its data is not validated for clinical use.</p>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
