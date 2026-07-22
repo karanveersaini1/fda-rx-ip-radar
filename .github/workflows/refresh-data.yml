@@ -13,6 +13,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   refresh:
@@ -49,3 +50,29 @@ jobs:
           fi
           git commit -m "data: refresh through ${{ steps.window.outputs.end }}"
           git push
+
+      # A scheduled job that breaks is otherwise only visible in an email, so
+      # surface it as an issue. Comment on the existing open one rather than
+      # filing a fresh issue every day the source stays broken.
+      - name: Report failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create etl-failure --color B60205 \
+            --description "Scheduled data refresh failed" 2>/dev/null || true
+          existing=$(gh issue list --label etl-failure --state open \
+            --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Refresh failed again on $(date -u +%F). $RUN_URL"
+          else
+            gh issue create --label etl-failure \
+              --title "Scheduled data refresh is failing" \
+              --body "The daily ETL failed on $(date -u +%F).
+
+          Run log: $RUN_URL
+
+          The site keeps serving the last good \`docs/data/\`, so it is stale rather
+          than broken. Closing this issue re-arms the alert."
+          fi
