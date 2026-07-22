@@ -1,5 +1,7 @@
 # ⚖️ RxIP Radar
 
+**Live: <https://karanveersaini1.github.io/fda-rx-ip-radar/>**
+
 **FDA approval actions and their patent consequences** — a static web app that joins the FDA's
 drug approval feed to the Orange Book (the Hatch-Waxman statutory bridge between FDA and the
 USPTO) and renders, for every approved drug: its listed patents, when they expire, its
@@ -36,19 +38,38 @@ No server, no database, no build step, no dependencies.
 
 ## Run locally
 
+Requires **Python 3.10+** (the ETL uses `X | None` annotations). macOS ships 3.9, which fails
+at import with `TypeError: unsupported operand type(s) for |`.
+
 ```bash
 START_DATE=2026-01-01 python3 etl/run_all.py   # fetch + join data (a couple of minutes)
 cd docs && python3 -m http.server 8000          # then open http://localhost:8000
 ```
 
+Omit `START_DATE` for a trailing 60-day window. `END_DATE` pins the far end; both are ISO dates.
+
+## Automated refresh
+
+`.github/workflows/refresh-data.yml` runs daily at **07:00 UTC**: it rebuilds `docs/data/` for a
+year-to-date window ending yesterday, and commits only when the output actually changed. That
+push republishes the Pages site. Run it on demand from the Actions tab → *Run workflow*.
+
+If the job fails it opens (or comments on) an issue labelled `etl-failure`, since a broken cron
+is otherwise invisible. The site keeps serving the last good data, so failures make it stale
+rather than broken.
+
 ## Deploy to GitHub Pages
 
 1. Create a **public** GitHub repo and push this folder.
-2. Repo **Settings → Pages → Source**: `Deploy from a branch`, branch `main`, folder `/docs`.
+2. Repo **Settings → Pages → Source**: `Deploy from a branch`, branch `master`, folder `/docs`.
 3. The site appears at `https://<username>.github.io/<repo>/` in a minute or two.
-4. The included workflow (`.github/workflows/daily.yml`) refreshes the data every morning and
-   commits it, which re-publishes the page automatically. Trigger it manually anytime from the
-   Actions tab ("Run workflow").
+
+`docs/.nojekyll` is required — without it Jekyll processes the directory and can drop files.
+
+## Licence
+
+MIT — see [LICENSE](LICENSE). The underlying FDA and Federal Register data is US Government
+public domain.
 
 ## Disclaimer
 

@@ -19,18 +19,20 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           # ETL is stdlib-only, but needs 3.10+ for `X | None` annotations.
           python-version: "3.12"
 
+      # Year-to-date, ending yesterday: openFDA has barely any of today's
+      # actions at 07:00 UTC. Derived at runtime so this rolls over on Jan 1.
       - name: Build window
         id: window
         run: |
-          end=$(date -u -d 'yesterday' +%F)
-          echo "start=$(date -u -d "$end" +%Y)-01-01" >> "$GITHUB_OUTPUT"
+          end=$(date -u -d yesterday +%F)
+          echo "start=${end%%-*}-01-01" >> "$GITHUB_OUTPUT"
           echo "end=$end" >> "$GITHUB_OUTPUT"
 
       - name: Run ETL
@@ -60,19 +62,23 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          today=$(date -u +%F)
           gh label create etl-failure --color B60205 \
             --description "Scheduled data refresh failed" 2>/dev/null || true
           existing=$(gh issue list --label etl-failure --state open \
             --json number --jq '.[0].number // empty')
           if [ -n "$existing" ]; then
-            gh issue comment "$existing" --body "Refresh failed again on $(date -u +%F). $RUN_URL"
-          else
-            gh issue create --label etl-failure \
-              --title "Scheduled data refresh is failing" \
-              --body "The daily ETL failed on $(date -u +%F).
+            gh issue comment "$existing" --body "Refresh failed again on $today. $RUN_URL"
+            exit 0
+          fi
+          gh issue create --label etl-failure \
+            --title "Scheduled data refresh is failing" \
+            --body "$(cat <<EOF
+          The daily ETL failed on $today.
 
           Run log: $RUN_URL
 
-          The site keeps serving the last good \`docs/data/\`, so it is stale rather
-          than broken. Closing this issue re-arms the alert."
-          fi
+          The site keeps serving the last good docs/data/, so it is stale rather
+          than broken. Closing this issue re-arms the alert.
+          EOF
+          )"

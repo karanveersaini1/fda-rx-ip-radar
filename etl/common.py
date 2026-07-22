@@ -17,8 +17,15 @@ DATA_DIR = ROOT / "docs" / "data"
 HEADERS = {
     "User-Agent": "RxIP-Radar/0.1 (educational research project)",
     "Accept": "*/*",
-    "Accept-Language": "en-US,en;q=0.9",
 }
+
+
+def _worth_retrying(err: Exception) -> bool:
+    """Retry transient failures only. A 404 or 403 returns the same answer on
+    every attempt, so retrying it just delays a build failure by the backoff."""
+    if isinstance(err, urllib.error.HTTPError):
+        return err.code == 429 or err.code >= 500
+    return True
 
 
 def fetch(url: str, retries: int = 3, timeout: int = 90) -> bytes:
@@ -30,6 +37,8 @@ def fetch(url: str, retries: int = 3, timeout: int = 90) -> bytes:
                 return resp.read()
         except (urllib.error.URLError, TimeoutError, ConnectionError) as err:
             last_err = err
+            if not _worth_retrying(err) or attempt == retries - 1:
+                break
             time.sleep(2**attempt)
     raise RuntimeError(f"Failed to fetch {url}: {last_err}")
 
