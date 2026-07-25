@@ -1,5 +1,26 @@
 [
  {
+  "title": "Medical Devices; General Hospital and Personal Use Devices; Classification of the Active Noise Attenuation System for Infant Incubators",
+  "type": "Rule",
+  "date": "2026-07-27",
+  "url": "https://www.federalregister.gov/documents/2026/07/27/2026-15075/medical-devices-general-hospital-and-personal-use-devices-classification-of-the-active-noise",
+  "abstract": "The Food and Drug Administration (FDA) is classifying the active noise attenuation system for infant incubators into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the active noise attenuatio..."
+ },
+ {
+  "title": "Medical Devices; Gastroenterology-Urology Devices; Classification of the Non-Medicated Topical Formulation for Treatment of Erectile Dysfunction",
+  "type": "Rule",
+  "date": "2026-07-27",
+  "url": "https://www.federalregister.gov/documents/2026/07/27/2026-15074/medical-devices-gastroenterology-urology-devices-classification-of-the-non-medicated-topical",
+  "abstract": "The Food and Drug Administration (FDA) is classifying the non- medicated topical formulation for treatment of erectile dysfunction into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the non-..."
+ },
+ {
+  "title": "Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Radioactive Drug Research Committees",
+  "type": "Notice",
+  "date": "2026-07-27",
+  "url": "https://www.federalregister.gov/documents/2026/07/27/2026-15070/agency-information-collection-activities-submission-for-office-of-management-and-budget-review",
+  "abstract": "The Food and Drug Administration (FDA) is announcing that a proposed collection of information has been submitted to the Office of Management and Budget (OMB) for review and clearance under the Paperwork Reduction Act of 1995."
+ },
+ {
   "title": "Evonik Corporation, Filing of Food Additive Petition (Animal Use)",
   "type": "Proposed Rule",
   "date": "2026-07-24",
@@ -418,96 +439,5 @@
   "date": "2026-06-25",
   "url": "https://www.federalregister.gov/documents/2026/06/25/2026-12855/sterigenics-us-llc-filing-of-food-additive-petition",
   "abstract": "The Food and Drug Administration (FDA or we) is announcing that we have filed a food additive petition, submitted by Sterigenics U.S., LLC, proposing that we amend our food additive regulations to provide for the safe use of ionizing radiation for the reduction of pathogens in raw enriched wheat flour."
- },
- {
-  "title": "International Cooperation on Harmonisation of Technical Requirements for Registration of Veterinary Medicinal Products; Effectiveness of Anthelmintics: Specific Recommendations for Chickens-Gallus Gallus; Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12686/international-cooperation-on-harmonisation-of-technical-requirements-for-registration-of-veterinary",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry (GFI) #114 entitled \"Effectiveness of Anthelmintics: Specific Recommendations for Chickens--Gallus gallus.\" This guidance has been developed for veterinary use by the International Cooperation on Harmonis..."
- },
- {
-  "title": "International Cooperation on Harmonisation of Technical Requirements for Registration of Veterinary Medicinal Products; Effectiveness of Anthelmintics: Specific Recommendations for Felines; Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12685/international-cooperation-on-harmonisation-of-technical-requirements-for-registration-of-veterinary",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry (GFI) #113 entitled \"Effectiveness of Anthelmintics: Specific Recommendations for Felines.\" This guidance has been developed for veterinary use by the International Cooperation on Harmonisation of Technic..."
- },
- {
-  "title": "International Cooperation on Harmonisation of Technical Requirements for Registration of Veterinary Medicinal Products; Effectiveness of Anthelmintics: Specific Recommendations for Canines; Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12684/international-cooperation-on-harmonisation-of-technical-requirements-for-registration-of-veterinary",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry (GFI) #111 entitled \"Effectiveness of Anthelmintics: Specific Recommendations for Canines.\" This guidance has been developed for veterinary use by the International Cooperation on Harmonisation of Technic..."
- },
- {
-  "title": "International Cooperation on Harmonisation of Technical Requirements for Registration of Veterinary Medicinal Products; Effectiveness of Anthelmintics: Specific Recommendations for Porcines; Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12683/international-cooperation-on-harmonisation-of-technical-requirements-for-registration-of-veterinary",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry (GFI) #110 entitled \"Effectiveness of Anthelmintics: Specific Recommendations for Porcines.\" This guidance has been developed for veterinary use by the International Cooperation on Harmonisation of Techni..."
- },
- {
-  "title": "International Cooperation on Harmonisation of Technical Requirements for Registration of Veterinary Medicinal Products; Effectiveness of Anthelmintics: Specific Recommendations for Equines; Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12682/international-cooperation-on-harmonisation-of-technical-requirements-for-registration-of-veterinary",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry (GFI) #109 entitled \"Effectiveness of Anthelmintics: Specific Recommendations for Equines.\" This guidance has been developed for veterinary use by the International Cooperation on Harmonisation of Technic..."
- },
- {
-  "title": "International Cooperation on Harmonisation of Technical Requirements for Registration of Veterinary Medicinal Products; Effectiveness of Anthelmintics: Specific Recommendations for Caprines; Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12681/international-cooperation-on-harmonisation-of-technical-requirements-for-registration-of-veterinary",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry (GFI) #97 entitled \"Effectiveness of Anthelmintics: Specific Recommendations for Caprines.\" This guidance has been developed for veterinary use by the International Cooperation on Harmonisation of Technic..."
- },
- {
-  "title": "International Cooperation on Harmonisation of Technical Requirements for Registration of Veterinary Medicinal Products; Effectiveness of Anthelmintics: Specific Recommendations for Ovines; Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12680/international-cooperation-on-harmonisation-of-technical-requirements-for-registration-of-veterinary",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry (GFI) #96 entitled \"Effectiveness of Anthelmintics: Specific Recommendations for Ovines.\" This guidance has been developed for veterinary use by the International Cooperation on Harmonisation of Technical..."
- },
- {
-  "title": "International Cooperation on Harmonisation of Technical Requirements for Registration of Veterinary Medicinal Products; Effectiveness of Anthelmintics: Specific Recommendations for Bovines; Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12679/international-cooperation-on-harmonisation-of-technical-requirements-for-registration-of-veterinary",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry (GFI) #95 entitled \"Effectiveness of Anthelmintics: Specific Recommendations for Bovines.\" This guidance has been developed for veterinary use by the International Cooperation on Harmonisation of Technica..."
- },
- {
-  "title": "International Cooperation on Harmonisation of Technical Requirements for Registration of Veterinary Medicinal Products; Effectiveness of Anthelmintics: General Recommendations; Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12678/international-cooperation-on-harmonisation-of-technical-requirements-for-registration-of-veterinary",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry (GFI) #90 entitled \"Effectiveness of Anthelmintics: General Recommendations.\" This guidance has been developed for veterinary use by the International Cooperation on Harmonisation of Technical Requirement..."
- },
- {
-  "title": "Demonstrating Substantial Evidence of Effectiveness for Human Drug and Biological Products; Revised Draft Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12622/demonstrating-substantial-evidence-of-effectiveness-for-human-drug-and-biological-products-revised",
-  "abstract": "The Food and Drug Administration (FDA, Agency, or we) is announcing the availability of a revised draft guidance for industry titled \"Demonstrating Substantial Evidence of Effectiveness for Human Drug and Biological Products.\" FDA has revised and is reissuing this draft guidance in response to public comments and to..."
- },
- {
-  "title": "Expedited Investigational New Drug Pilot Program; Request for Information",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12621/expedited-investigational-new-drug-pilot-program-request-for-information",
-  "abstract": "The Food and Drug Administration (FDA or the Agency) is opening a public docket to solicit input and comments on a proposal to establish a pilot program, the Expedited Investigational New Drug (IND) pilot program, to shorten the time it takes from drug identification to first-in-human (FIH) study, while protecting c..."
- },
- {
-  "title": "Master Protocols for Drug and Biological Product Development; Draft Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12620/master-protocols-for-drug-and-biological-product-development-draft-guidance-for-industry",
-  "abstract": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a draft guidance for industry entitled \"Master Protocols for Drug and Biological Product Development.\" This draft guidance revises and replaces the previous draft guidance for industry of the same name issued on December 22, 2023. The..."
- },
- {
-  "title": "Quantitative Systems Pharmacology (QSP)-Based Dose Selection for Minimum Anticipated Biological Effect Level (MABEL) in First-in-Human (FIH) Trials; Draft Guidance for Industry; Availability",
-  "type": "Notice",
-  "date": "2026-06-24",
-  "url": "https://www.federalregister.gov/documents/2026/06/24/2026-12619/quantitative-systems-pharmacology-qsp-based-dose-selection-for-minimum-anticipated-biological-effect",
-  "abstract": "The Food and Drug Administration (FDA, Agency, or we) is announcing the availability of a draft guidance for industry entitled \"Quantitative Systems Pharmacology (QSP)-Based Dose Selection for Minimum Anticipated Biological Effect Level (MABEL) in First-in-Human (FIH) Trials.\" The guidance is intended to provide rec..."
  }
 ]
