@@ -64,6 +64,23 @@ jobs:
           git commit -m "data: refresh through ${{ steps.window.outputs.end }}"
           git push
 
+      # Recovery: a failing run opens an etl-failure issue but can't close it,
+      # so a transient source outage (e.g. an openFDA 403) would otherwise leave
+      # a stale "is failing" issue open long after the pipeline recovered. Close
+      # any open one on success, which re-arms the alert for the next real break.
+      - name: Clear failure alert
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          today=$(date -u +%F)
+          for n in $(gh issue list --label etl-failure --state open \
+              --json number --jq '.[].number'); do
+            gh issue close "$n" \
+              --comment "Refresh succeeded on $today; auto-closing. $RUN_URL"
+          done
+
       # A scheduled job that breaks is otherwise only visible in an email, so
       # surface it as an issue. Comment on the existing open one rather than
       # filing a fresh issue every day the source stays broken.
