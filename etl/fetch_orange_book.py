@@ -52,7 +52,10 @@ def _rows(zf: zipfile.ZipFile, name: str):
 def load_orange_book() -> dict:
     """Return {'patents': {...}, 'exclusivities': {...}, 'products': {...}} keyed by
     (Appl_Type, Appl_No) e.g. ('N', '020610'). Appl_Type: N = NDA, A = ANDA."""
-    raw = fetch(EOB_URL)
+    # fda.gov occasionally answers this download with an HTML bot-check page
+    # (HTTP 200), which then blows up as "File is not a zip file". Validate the
+    # body so fetch() retries until we actually get zip bytes.
+    raw = fetch(EOB_URL, validate=lambda b: zipfile.is_zipfile(io.BytesIO(b)))
     zf = zipfile.ZipFile(io.BytesIO(raw))
 
     patents: dict = {}

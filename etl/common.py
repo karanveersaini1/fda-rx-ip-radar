@@ -4,6 +4,7 @@ import json
 import time
 import urllib.error
 import urllib.request
+from collections.abc import Callable
 from datetime import date, datetime
 from pathlib import Path
 
@@ -28,14 +29,27 @@ def _worth_retrying(err: Exception) -> bool:
     return True
 
 
-def fetch(url: str, retries: int = 3, timeout: int = 90) -> bytes:
+def fetch(
+    url: str,
+    retries: int = 3,
+    timeout: int = 90,
+    validate: Callable[[bytes], bool] | None = None,
+) -> bytes:
+    """Fetch url with retries. `validate`, if given, is a predicate on the
+    response body; a falsy result is retried like a transient error. fda.gov's
+    Akamai edge sometimes answers a binary download with HTTP 200 and an HTML
+    bot-check page — retryable, but it never raises an HTTPError, so a body
+    check is the only way to catch it."""
     last_err = None
     for attempt in range(retries):
         try:
             req = urllib.request.Request(url, headers=HEADERS)
             with urllib.request.urlopen(req, timeout=timeout) as resp:
-                return resp.read()
-        except (urllib.error.URLError, TimeoutError, ConnectionError) as err:
+                body = resp.read()
+            if validate is not None and not validate(body):
+                raise ValueError(f"unexpected response body ({len(body)} bytes)")
+            return body
+        except (urllib.error.URLError, TimeoutError, ConnectionError, ValueError) as err:
             last_err = err
             if not _worth_retrying(err) or attempt == retries - 1:
                 break
