@@ -73,13 +73,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          today=$(date -u +%F)
-          for n in $(gh issue list --label etl-failure --state open \
-              --json number --jq '.[].number'); do
-            gh issue close "$n" \
-              --comment "Refresh succeeded on $today; auto-closing. $RUN_URL"
-          done
+        run: .github/scripts/clear-failure-alert.sh
 
       # A scheduled job that breaks is otherwise only visible in an email, so
       # surface it as an issue. Comment on the existing open one rather than
