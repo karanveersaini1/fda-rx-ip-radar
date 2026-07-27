@@ -1,0 +1,17 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  unittest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          # ETL is stdlib-only, but needs 3.10+ for `X | None` annotations.
+          python-version: "3.12"
+      - name: Run tests
+        run: python -m unittest discover -s etl -p "test_*.py" -v
