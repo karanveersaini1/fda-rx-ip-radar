@@ -67,6 +67,22 @@ def build(approvals: list[dict], window: dict, orange_book: dict, fedreg: list[d
         }
         enriched.append(rec)
 
+    # Guard against a silent source failure. openFDA can answer HTTP 200 with an
+    # empty result set instead of erroring; writing that would replace a good
+    # dataset with an empty one and the site would render blank. Over any window
+    # wider than a couple of weeks there are always approvals, so zero is a fetch
+    # failure, not a real result. Raise so the ETL fails and the workflow skips
+    # the commit, leaving the last good docs/data/ in place. (Narrow manual
+    # windows can legitimately be empty, so only guard the multi-week case.)
+    start = datetime.strptime(window["start"], "%Y-%m-%d")
+    end = datetime.strptime(window["end"], "%Y-%m-%d")
+    if not enriched and (end - start).days > 14:
+        raise RuntimeError(
+            f"No approvals for {window['start']}..{window['end']} "
+            f"({(end - start).days} days) — treating as a source failure and "
+            "refusing to overwrite the last good dataset."
+        )
+
     stats = headline_stats(enriched, window)
     meta = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
