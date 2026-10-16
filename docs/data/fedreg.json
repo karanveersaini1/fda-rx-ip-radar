@@ -1,5 +1,26 @@
 [
  {
+  "title": "Electronic Common Technical Document (eCTD); Data Standards; Supporting Forward Compatibility for eCTD 4.0",
+  "type": "Notice",
+  "date": "2026-10-16",
+  "url": "https://www.federalregister.gov/documents/2026/10/16/2026-21197/electronic-common-technical-document-ectd-data-standards-supporting-forward-compatibility-for-ectd",
+  "abstract": "The Food and Drug Administration's (FDA or Agency) Center for Drug Evaluation and Research and Center for Biologics Evaluation and Research are announcing support for Forward Compatibility for Electronic Common Technical Document (eCTD) Version 4.0 (v4.0)-based electronic submissions."
+ },
+ {
+  "title": "Electronic Common Technical Document; Data Standards; Center for Drug Evaluation and Research and Center for Biologics Evaluation and Research Supporting Electronic Common Technical Document Version 3.2.2 and Version 4.0",
+  "type": "Notice",
+  "date": "2026-10-16",
+  "url": "https://www.federalregister.gov/documents/2026/10/16/2026-21195/electronic-common-technical-document-data-standards-center-for-drug-evaluation-and-research-and",
+  "abstract": "The Food and Drug Administration's (FDA or Agency) Center for Drug Evaluation and Research and Center for Biologics Evaluation and Research are announcing the date FDA will begin rejecting electronic submissions that fail new Electronic Common Technical Document (eCTD) Version 3.22 (v3.22) and Version 4.0 (v4.0) bas..."
+ },
+ {
+  "title": "Fit-for-Purpose Rare Disease Framework Initiative; Public Meeting; Request for Information and Comments",
+  "type": "Notice",
+  "date": "2026-10-16",
+  "url": "https://www.federalregister.gov/documents/2026/10/16/2026-21142/fit-for-purpose-rare-disease-framework-initiative-public-meeting-request-for-information-and",
+  "abstract": "The Food and Drug Administration (FDA, the Agency, or we) is announcing a public meeting entitled \"Fit-for-Purpose Rare Disease Framework Initiative\". Convened by the Reagan-Udall Foundation for, and in collaboration with FDA, the meeting will focus on developing a fit-for-purpose framework for the development and r..."
+ },
+ {
   "title": "Authorization of Emergency Use for Four Animal Drugs for the Prevention and Treatment of New World Screwworm; Availability",
   "type": "Notice",
   "date": "2026-10-15",
@@ -467,12 +488,5 @@
   "date": "2026-09-16",
   "url": "https://www.federalregister.gov/documents/2026/09/16/2026-18920/microbiology-devices-panel-of-the-medical-devices-advisory-committee-notice-of-meeting-establishment",
   "abstract": "The Food and Drug Administration (FDA) announces a forthcoming public advisory committee meeting of the Microbiology Devices Panel of the Medical Devices Advisory Committee (the Committee). The general function of the Committee is to provide advice and recommendations to FDA. In addition, the Committee will meet to..."
- },
- {
-  "title": "Statistical Considerations for the Design of Rare Disease Clinical Investigations; Establishment of a Public Docket; Request for Information and Comments",
-  "type": "Notice",
-  "date": "2026-09-15",
-  "url": "https://www.federalregister.gov/documents/2026/09/15/2026-18805/statistical-considerations-for-the-design-of-rare-disease-clinical-investigations-establishment-of-a",
-  "abstract": "The Food and Drug Administration (FDA, the Agency, or we) is establishing a public docket to collect feedback on statistical considerations for rare disease clinical investigations. This docket is open in conjunction with a Rare disease Innovation, Science, and Exploration (RISE) Workshop on the same topic. Feedback..."
  }
 ]
