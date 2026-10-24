@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-10-23T12:27:33+00:00",
+ "generated_at": "2026-10-24T11:52:57+00:00",
  "window": {
   "start": "2026-01-01",
-  "end": "2026-10-22"
+  "end": "2026-10-23"
  },
  "stats": {
-  "total_applications": 2852,
-  "new_drugs": 83,
+  "total_applications": 2860,
+  "new_drugs": 84,
   "biologics": 24,
-  "generics": 570,
-  "supplements": 2175,
+  "generics": 571,
+  "supplements": 2181,
   "new_drugs_with_patents": 39,
   "median_patent_runway_years": 13.6,
   "max_patent_expiry_year": 2046,
@@ -78,10 +78,10 @@
     "other": 0
    },
    "2026-10": {
-    "new-drug": 10,
+    "new-drug": 11,
     "biologic": 0,
-    "generic": 27,
-    "supplement": 191,
+    "generic": 28,
+    "supplement": 201,
     "other": 0
    }
   }
