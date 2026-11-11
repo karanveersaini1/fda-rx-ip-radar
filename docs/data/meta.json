@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-11-10T15:26:53+00:00",
+ "generated_at": "2026-11-11T14:57:28+00:00",
  "window": {
   "start": "2026-01-01",
-  "end": "2026-11-09"
+  "end": "2026-11-10"
  },
  "stats": {
   "total_applications": 2947,
@@ -88,7 +88,7 @@
     "new-drug": 0,
     "biologic": 0,
     "generic": 8,
-    "supplement": 22,
+    "supplement": 24,
     "other": 0
    }
   }
